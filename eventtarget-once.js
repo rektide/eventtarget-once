@@ -31,7 +31,7 @@ export function onceOn( eventTarget, eventType, options= {}){
 	var promise= Promise( function( resolve, reject){
 
 		// bind handler, will call `resolve`
-		target.addEventListener( eventType, handler, eventOptions)
+		eventTarget.addEventListener( eventType, handler, eventOptions)
 		// bind abort, will call `reject`
 		if( signal){
 			// update eventOptions in place
@@ -47,7 +47,7 @@ export function onceOn( eventTarget, eventType, options= {}){
 			if( filter){
 				try{
 					// filter, passing event, event-type, promise
-					evt= filter( evt, { eventType, promise, state})
+					evt= filter( evt, { eventTarget, eventType, promise, state})
 				}catch( ex){}
 			}
 			// filter tells us to skip this one, wait for next
@@ -56,7 +56,7 @@ export function onceOn( eventTarget, eventType, options= {}){
 			}
 
 			// cleanup
-			target.removeEventListener( eventType, handler)
+			eventTarget.removeEventListener( eventType, handler)
 			if( signal){
 				signal.removeEventListener( "abort", aborter)
 			}
@@ -68,7 +68,7 @@ export function onceOn( eventTarget, eventType, options= {}){
 		// handle abort events on the passed in AbortSignal
 		function aborter(){
 			// cleanup
-			target.removeEventListener( eventType, handler)
+			eventTarget.removeEventListener( eventType, handler)
 			signal.removeEventListener( "abort", aborter)
 
 			// done

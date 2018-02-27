@@ -26,7 +26,8 @@ once( myElemnt, "click", { filter: e=> e.button=== 1}).then( e=> console.log("Mi
 ```
 
 The `filter` function is passed first the `Event`, and second, an object with
-* `eventType` - the textual type of the event,
+* `eventTarget` - the event-target being listened to.
+* `eventType` - the textual type of this event,
 * `promise` - the resulting promise,
 * `state` - an additional option passed in to once
 
