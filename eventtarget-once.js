@@ -24,7 +24,7 @@ export function onceOn( eventTarget, eventType, options= {}){
 	  }
 	// immediately bail out if already aborted
 	if( signal&& signal.aborted){
-		return Promise.reject(new AbortError("Aborted"));
+		return Promise.reject(new _AbortError("Aborted"));
 	}
 
 	// return promise for value, or abort
@@ -72,21 +72,28 @@ export function onceOn( eventTarget, eventType, options= {}){
 			signal.removeEventListener( "abort", aborter)
 
 			// done
-			reject( new AbortError("Aborted"))
+			reject( new _AbortError("Aborted"))
 		}
 
 	})
 	return promise
+};
+
+export function once( eventType, options){
+	return onceOn( this, eventType, options)
 }
 
-export function once( eventType, handler, options){
-	return onceOn( this, eventType, options
-}
-
-export let AbortError= typeof AbortError!== "undefined"? AbortError: class extends Error
+let _AbortError= (function( ae){
+	// global AbortError passed as `ae` in because we're about to shadow that name,
+	// to get class syntax to have the proper name
+	var AbortError= class extends Error{}
+	// use global if available
+	return ae|| AbortError
+})( typeof AbortError!== "undefined"? AbortError: null) // pass in global AbortError if available
+export {_AbortError as AbortError}
 
 export function setAbortError( abortError){
-	AbortError= abortError
+	_AbortError= abortError
 }
 
 export default onceOn
