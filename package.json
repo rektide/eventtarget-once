@@ -1,0 +1,18 @@
+{
+	"name": "eventtarget-once",
+	"version": "1.0.0",
+	"description": "Get a promise for the first firing of an event-type firing on an event-target.",
+	"main": "eventtarget-once.js",
+	"module": "eventtarget-once.js",
+	"esm": true,
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://archive.voodoowarez.com/eventtarget-once"
+	},
+	"keywords": ["event-target", "EventTarget", "once"],
+	"author": "rektide de la faye",
+	"license": "MIT"
+}
