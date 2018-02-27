@@ -13,11 +13,11 @@ once( document, "DOMContentLoaded").then( e=> console.log("Loaded!", e))
 A variety of options may be passed via an options bundle, as the third argument to once. These options are documented below:
 
 
-## addEventListenerOptions
+## Option: passive, capture
 
 `passive` (defaults to true) and `capture` are passed to the underlying `addEventListener` calls.
 
-## Filter
+## Option: filter
 
 `filter` is an optional function that transforms the received event before resolving. This is only mildly useful, as promises are pretty easy to chain transformations off of. However, if `filter` returns `false`, the current message is skipped.
 
@@ -30,7 +30,7 @@ The `filter` function is passed first the `Event`, and second, an object with
 * `promise` - the resulting promise,
 * `state` - an additional option passed in to once
 
-## Abort signal
+## Option: signal
 
 `signal` is an optional [AbortSignal](https://dom.spec.whatwg.org/#abortsignal) that can abort the promise (and of course cleanup all extant handler).
 
